@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class InformationMixing(models.Model):
+class InformationMixing (models.Model):
     created = models.DateTimeField(
         editable=False, auto_now_add=True)
     edited = models.DateTimeField(auto_now=True, auto_now_add=False)

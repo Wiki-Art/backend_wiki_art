@@ -9,6 +9,7 @@ ipdb="*"
 [packages]
 Django = "==3.0.2"
 python-decouple = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.6"

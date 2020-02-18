@@ -8,9 +8,11 @@ ipdb="*"
 
 [packages]
 Django = "==3.0.2"
-python-decouple = "*"
+python-decouple = "==3.3"
 flake8 = "*"
 graphene-django = "==2.8.2"
+pyUFbr= "==0.1.0"
+pillow = "==7.0.0"
 
 [requires]
 python_version = "3.6"

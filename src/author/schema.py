@@ -13,7 +13,7 @@ class Query(ObjectType):
     actors = graphene.List(AuthorType)
 
     def resolve_actor(self, info, **kwargs):
-        id = kwargs.get('id')
+        id = kwargs.get('id', None)
 
         if id is not None:
             return Author.objects.get(pk=id)

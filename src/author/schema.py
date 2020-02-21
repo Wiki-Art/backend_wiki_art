@@ -6,13 +6,14 @@ from author.models import Author
 class AuthorType(DjangoObjectType):
     class Meta:
         model = Author
+        fields = '__all__'
 
 
 class Query(ObjectType):
-    actor = graphene.Field(AuthorType, id=graphene.Int())
-    actors = graphene.List(AuthorType)
+    author = graphene.Field(AuthorType, id=graphene.Int())
+    authors = graphene.List(AuthorType)
 
-    def resolve_actor(self, info, **kwargs):
+    def resolve_author(self, info, **kwargs):
         id = kwargs.get('id', None)
 
         if id is not None:
@@ -20,5 +21,5 @@ class Query(ObjectType):
 
         return None
 
-    def resolve_actors(self, info, **kwargs):
+    def resolve_authors(self, info, **kwargs):
         return Author.objects.all()

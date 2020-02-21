@@ -3,14 +3,15 @@ from graphene_django.types import DjangoObjectType, ObjectType
 from church.models import Church
 
 
-class AuthorType(DjangoObjectType):
+class ChurchType(DjangoObjectType):
     class Meta:
         model = Church
+        fields = '__all__'
 
 
 class Query(ObjectType):
-    church = graphene.Field(AuthorType, id=graphene.Int())
-    churchs = graphene.List(AuthorType)
+    church = graphene.Field(ChurchType, id=graphene.Int())
+    churchs = graphene.List(ChurchType)
 
     def resolve_church(self, info, **kwargs):
         id = kwargs.get('id', None)

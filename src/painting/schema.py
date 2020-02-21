@@ -3,14 +3,15 @@ from graphene_django.types import DjangoObjectType, ObjectType
 from painting.models import WorkArt
 
 
-class AuthorType(DjangoObjectType):
+class WorkArtType(DjangoObjectType):
     class Meta:
         model = WorkArt
+        fields = '__all__'
 
 
 class Query(ObjectType):
-    work_art = graphene.Field(AuthorType, id=graphene.Int())
-    work_arts = graphene.List(AuthorType)
+    work_art = graphene.Field(WorkArtType, id=graphene.Int())
+    work_arts = graphene.List(WorkArtType)
 
     def resolve_work_art(self, info, **kwargs):
         id = kwargs.get('id', None)

@@ -31,7 +31,7 @@ UF_CHOICES = (
 RACE_CHOICE = (
     ('Amarelo', 'Amarelo'),
     ('Branco', 'Branco'),
-    ('Indígena', 'Indígena'),
+    ('Indigena', 'Indígena'),
     ('Negro', 'Negro'),
     ('Pardo', 'Pardo'),
 )

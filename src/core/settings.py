@@ -129,5 +129,5 @@ STATIC_URL = '/static/'
 
 
 GRAPHENE = {
-    'SCHEMA': 'django_graphql_movies.schema.schema'
+    'SCHEMA': 'core.schema.schema'
 }

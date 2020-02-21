@@ -3,8 +3,14 @@ from django.contrib import admin
 from .models import Author, ArcticleAuthor
 
 
+class ArcticleChurchInline(admin.TabularInline):
+    model = ArcticleAuthor
+    extra = 0
+
+
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
+    inlines = (ArcticleChurchInline,)
     list_display = (
         'id',
         'created',

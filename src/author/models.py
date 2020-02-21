@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Author(InformationMixing, TimesTempMixing):
     name = models.CharField(_('name author'), max_length=100, unique=True)
-    birth_date = models.PositiveIntegerField(blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
     race = models.CharField(_('race of author'),
                             max_length=20, choices=RACE_CHOICE)
     state = models.CharField(_('state abbreviation'), max_length=2,

@@ -50,6 +50,61 @@ class PictureChurchType(DjangoObjectType):
         interfaces = (CustomNode,)
 
 
+class ArticleChurchInput(graphene.InputObjectType):
+    url = graphene.String(required=True)
+
+
+class ChurchMutation(graphene.Mutation):
+    class Arguments:
+        author_send = graphene.String(required=True)
+        name = graphene.String(required=True)
+        year_foundation = graphene.Int(required=True)
+        state = graphene.String(required=True)
+        city = graphene.String(required=True)
+        articles = graphene.List(ArticleChurchInput)
+
+    church = graphene.Field(ChurchType)
+    ok = graphene.Boolean()
+
+    def mutate(self, info, **kwargs):
+        author_send = kwargs.get('author_send')
+        name = kwargs.get('name')
+        year_foundation = kwargs.get('year_foundation')
+        state = kwargs.get('state')
+        city = kwargs.get('city')
+        articles = kwargs.get('articles', None)
+        church = Church.objects.create(author_send=author_send, name=name,
+                                       year_foundation=year_foundation,
+                                       state=state, city=city)
+        import ipdb
+        ipdb.set_trace()
+        if articles is not None:
+            [ArcticleChurch.objects.create(
+                url=article['url'], church=church) for article in articles]
+
+        return ChurchMutation(church=church, ok=True)
+
+
+class ArticleChurchMutation(graphene.Mutation):
+    class Arguments:
+        author_send = graphene.String(required=True)
+        url = graphene.String(required=True)
+        church_id = graphene.Int(required=True)
+
+    article = graphene.Field(ArcticleChurchType)
+    ok = graphene.Boolean()
+
+    def mutate(self, info, **kwargs):
+        author_send = kwargs.get('author_send')
+        url = kwargs.get('url')
+        church_id = kwargs.get('church_id')
+        church = Church.objects.get(pk=church_id)
+        article = ArcticleChurch.objects.create(author_send=author_send,
+                                                url=url, church=church,)
+
+        return ArticleChurchMutation(article=article, ok=True)
+
+
 class Query(ObjectType):
     church = graphene.Field(ChurchType, id=graphene.Int(required=True))
     churches = DjangoFilterConnectionField(ChurchType)
@@ -62,3 +117,8 @@ class Query(ObjectType):
             return Church.objects.get(pk=id)
         except Exception:
             raise GraphQLError('Church not found')
+
+
+class Mutation(ObjectType):
+    create_church = ChurchMutation.Field()
+    create_article = ArticleChurchMutation.Field()

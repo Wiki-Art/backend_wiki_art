@@ -64,6 +64,7 @@ class ChurchMutation(graphene.Mutation):
         articles = graphene.List(ArticleChurchInput)
 
     church = graphene.Field(ChurchType)
+    articles = graphene.List(ArcticleChurchType)
     ok = graphene.Boolean()
 
     def mutate(self, info, **kwargs):
@@ -79,10 +80,10 @@ class ChurchMutation(graphene.Mutation):
         import ipdb
         ipdb.set_trace()
         if articles is not None:
-            [ArcticleChurch.objects.create(
+            x = [ArcticleChurch.objects.create(
                 url=article['url'], church=church) for article in articles]
 
-        return ChurchMutation(church=church, ok=True)
+        return ChurchMutation(church=church, ok=True, articles=x)
 
 
 class ArticleChurchMutation(graphene.Mutation):

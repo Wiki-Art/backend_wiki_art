@@ -1,9 +1,9 @@
 import graphene
-from graphene_django.types import DjangoObjectType, ObjectType
-from church.models import Church, ArcticleChurch, PictureChurch
-from graphene_django.filter import DjangoFilterConnectionField
-from graphql import GraphQLError
+from church.models import ArcticleChurch, Church, PictureChurch
 from core.custom_node import CustomNode
+from graphene_django.filter import DjangoFilterConnectionField
+from graphene_django.types import DjangoObjectType, ObjectType
+from graphql import GraphQLError
 
 
 class ChurchType(DjangoObjectType):
@@ -77,8 +77,7 @@ class ChurchMutation(graphene.Mutation):
         church = Church.objects.create(author_send=author_send, name=name,
                                        year_foundation=year_foundation,
                                        state=state, city=city)
-        import ipdb
-        ipdb.set_trace()
+
         if articles is not None:
             x = [ArcticleChurch.objects.create(
                 url=article['url'], church=church) for article in articles]

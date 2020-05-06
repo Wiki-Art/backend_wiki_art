@@ -32,22 +32,28 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv(), default="*")
 # Application definition
 
 INSTALLED_APPS = [
-    # GRAPHQL
-    'graphene_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # THIRD APPS
     'django_extensions',
+    'rest_framework',
+    'graphene_django',
+    'corsheaders',
+
     # APPS
     'church',
     'author',
     'painting',
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -127,7 +133,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+# GraphQL
 GRAPHENE = {
     'SCHEMA': 'core.schema.schema'
 }
+
+
+# Media Files
+MEDIA_URL = config('MEDIA_URL', default='media/')
+MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True

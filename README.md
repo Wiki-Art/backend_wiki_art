@@ -16,7 +16,7 @@ estudos iniciais desta tecnologia no 1º LabootCamp promovido pelo LABHacker. Fo
 [settings]
 DEBUG=True
 SECRET_KEY=secret_key
-ALLOWED_HOSTS=['127.0.0.1', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS='127.0.0.1', 'localhost', '0.0.0.0'
 TIME_ZONE=America/Sao_Paulo
 LANGUAGE_CODE=pt-br
 NAME=mydatabase

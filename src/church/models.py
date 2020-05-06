@@ -24,7 +24,7 @@ class PictureChurch(TimesTempMixing):
         return '{} - {}'.format(self.id, self.church.name)
 
 
-class ArcticleChurch(InformationMixing, TimesTempMixing):
+class ArticleChurch(InformationMixing, TimesTempMixing):
     church = models.ForeignKey(
         Church, on_delete=models.CASCADE, related_name='articles')
     url = models.CharField(_('url article'), max_length=200)

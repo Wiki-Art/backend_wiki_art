@@ -13,6 +13,9 @@ class Author(InformationMixing, TimesTempMixing):
                              choices=UF_CHOICES)
     city = models.CharField(_('city'), max_length=100)
 
+    def __str__(self):
+        return '{} - {}'.format(self.id, self.name)
+
 
 class ArcticleAuthor(InformationMixing, TimesTempMixing):
     author = models.ForeignKey(

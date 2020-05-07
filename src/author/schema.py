@@ -1,6 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType, ObjectType
-from author.models import Author, ArcticleAuthor
+from author.models import Author, ArticleAuthor
 from core.custom_node import CustomNode
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
@@ -20,9 +20,9 @@ class AuthorType(DjangoObjectType):
         interfaces = (CustomNode,)
 
 
-class ArcticleAuthorType(DjangoObjectType):
+class ArticleAuthorType(DjangoObjectType):
     class Meta:
-        model = ArcticleAuthor
+        model = ArticleAuthor
         filter_fields = {
             'author': ['exact'],
             'author_send': ['icontains', 'exact'],
@@ -36,9 +36,9 @@ class ArcticleAuthorType(DjangoObjectType):
 class Query(ObjectType):
     author = graphene.Field(AuthorType, id=graphene.Int(required=True))
     authors = DjangoFilterConnectionField(AuthorType)
-    articles_churches = DjangoFilterConnectionField(ArcticleAuthorType)
+    articles_author = DjangoFilterConnectionField(ArticleAuthorType)
 
-    def resolve_church(self, info, **kwargs):
+    def resolve_author(self, info, **kwargs):
         id = kwargs.get('id')
         try:
             return Author.objects.get(pk=id)

@@ -1,6 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType, ObjectType
-from painting.models import WorkArt, ArcticleWorkArt, PictureWorkArt
+from painting.models import WorkArt, ArticleWorkArt, PictureWorkArt
 from core.custom_node import CustomNode
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
@@ -20,9 +20,9 @@ class WorkArtType(DjangoObjectType):
         interfaces = (CustomNode,)
 
 
-class ArcticleWorkArtType(DjangoObjectType):
+class ArticleWorkArtType(DjangoObjectType):
     class Meta:
-        model = ArcticleWorkArt
+        model = ArticleWorkArt
         filter_fields = {
             'work_art__name': ['exact', 'icontains'],
             'work_art__state': ['exact'],
@@ -51,10 +51,10 @@ class PictureWorkArtType(DjangoObjectType):
 class Query(ObjectType):
     work_art = graphene.Field(WorkArtType, id=graphene.Int(required=True))
     work_arts = DjangoFilterConnectionField(WorkArtType)
-    articles_work_arts = DjangoFilterConnectionField(ArcticleWorkArtType)
+    articles_work_arts = DjangoFilterConnectionField(ArticleWorkArtType)
     pictures_work_arts = DjangoFilterConnectionField(PictureWorkArtType)
 
-    def resolve_church(self, info, **kwargs):
+    def resolve_work_art(self, info, **kwargs):
         id = kwargs.get('id')
         try:
             return WorkArt.objects.get(pk=id)

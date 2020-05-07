@@ -1,5 +1,5 @@
 import graphene
-from church.models import ArcticleChurch, Church, PictureChurch
+from church.models import ArticleChurch, Church, PictureChurch
 from core.custom_node import CustomNode
 from graphene_django.filter import DjangoFilterConnectionField
 from graphene_django.types import DjangoObjectType, ObjectType
@@ -22,9 +22,9 @@ class ChurchType(DjangoObjectType):
         interfaces = (CustomNode,)
 
 
-class ArcticleChurchType(DjangoObjectType):
+class ArticleChurchType(DjangoObjectType):
     class Meta:
-        model = ArcticleChurch
+        model = ArticleChurch
         filter_fields = {
             'church__name': ['exact', 'icontains'],
             'church__state': ['exact'],
@@ -64,7 +64,7 @@ class ChurchMutation(graphene.Mutation):
         articles = graphene.List(ArticleChurchInput)
 
     church = graphene.Field(ChurchType)
-    articles = graphene.List(ArcticleChurchType)
+    articles = graphene.List(ArticleChurchType)
     ok = graphene.Boolean()
 
     def mutate(self, info, **kwargs):
@@ -79,10 +79,10 @@ class ChurchMutation(graphene.Mutation):
                                        state=state, city=city)
 
         if articles is not None:
-            x = [ArcticleChurch.objects.create(
+            articles = [ArticleChurch.objects.create(
                 url=article['url'], church=church) for article in articles]
 
-        return ChurchMutation(church=church, ok=True, articles=x)
+        return ChurchMutation(church=church, ok=True, articles=articles)
 
 
 class ArticleChurchMutation(graphene.Mutation):
@@ -91,7 +91,7 @@ class ArticleChurchMutation(graphene.Mutation):
         url = graphene.String(required=True)
         church_id = graphene.Int(required=True)
 
-    article = graphene.Field(ArcticleChurchType)
+    article = graphene.Field(ArticleChurchType)
     ok = graphene.Boolean()
 
     def mutate(self, info, **kwargs):
@@ -99,8 +99,8 @@ class ArticleChurchMutation(graphene.Mutation):
         url = kwargs.get('url')
         church_id = kwargs.get('church_id')
         church = Church.objects.get(pk=church_id)
-        article = ArcticleChurch.objects.create(author_send=author_send,
-                                                url=url, church=church,)
+        article = ArticleChurch.objects.create(author_send=author_send,
+                                               url=url, church=church,)
 
         return ArticleChurchMutation(article=article, ok=True)
 
@@ -109,7 +109,7 @@ class Query(ObjectType):
     church = graphene.Field(ChurchType, id=graphene.Int(required=True))
     churches = DjangoFilterConnectionField(ChurchType)
     pictures_churches = DjangoFilterConnectionField(PictureChurchType)
-    articles_churches = DjangoFilterConnectionField(ArcticleChurchType)
+    articles_churches = DjangoFilterConnectionField(ArticleChurchType)
 
     def resolve_church(self, info, **kwargs):
         id = kwargs.get('id')

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from .models import WorkArt, PictureWorkArt, ArcticleWorkArt
+from .models import WorkArt, PictureWorkArt, ArticleWorkArt
 
 
 class PictureWorkArtInline(admin.TabularInline):
@@ -15,13 +15,13 @@ class PictureWorkArtAdmin(admin.ModelAdmin):
     list_filter = ('created', 'edited', 'work_art')
 
 
-class ArcticleWorkArtInline(admin.TabularInline):
-    model = ArcticleWorkArt
+class ArticleWorkArtInline(admin.TabularInline):
+    model = ArticleWorkArt
     extra = 0
 
 
-@admin.register(ArcticleWorkArt)
-class ArcticleWorkArtAdmin(admin.ModelAdmin):
+@admin.register(ArticleWorkArt)
+class ArticleWorkArtAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'created',
@@ -36,7 +36,7 @@ class ArcticleWorkArtAdmin(admin.ModelAdmin):
 
 @admin.register(WorkArt)
 class WorkArtAdmin(admin.ModelAdmin):
-    inlines = (PictureWorkArtInline, ArcticleWorkArtInline,)
+    inlines = (PictureWorkArtInline, ArticleWorkArtInline,)
     list_display = (
         'id',
         'created',

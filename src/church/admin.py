@@ -15,7 +15,7 @@ class PictureChurchInline(admin.TabularInline):
 
 
 @admin.register(ArticleChurch)
-class ArcticleChurchAdmin(admin.ModelAdmin):
+class ArticleChurchAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'created',
@@ -28,14 +28,14 @@ class ArcticleChurchAdmin(admin.ModelAdmin):
     list_filter = ('created', 'edited', 'valid', 'church')
 
 
-class ArcticleChurchInline(admin.TabularInline):
+class ArticleChurchInline(admin.TabularInline):
     model = ArticleChurch
     extra = 0
 
 
 @admin.register(Church)
 class ChurchAdmin(admin.ModelAdmin):
-    inlines = (PictureChurchInline, ArcticleChurchInline, )
+    inlines = (PictureChurchInline, ArticleChurchInline, )
     list_display = (
         'id',
         'created',

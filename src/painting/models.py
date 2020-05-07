@@ -29,7 +29,7 @@ class PictureWorkArt(TimesTempMixing):
         return '{} - {}'.format(self.id, self.work_art.name)
 
 
-class ArcticleWorkArt(InformationMixing, TimesTempMixing):
+class ArticleWorkArt(InformationMixing, TimesTempMixing):
     work_art = models.ForeignKey(
         WorkArt, on_delete=models.CASCADE, related_name='articles')
     url = models.CharField(_('url article'), max_length=200)

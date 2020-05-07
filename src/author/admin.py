@@ -1,16 +1,16 @@
 from django.contrib import admin
 
-from .models import Author, ArcticleAuthor
+from .models import Author, ArticleAuthor
 
 
-class ArcticleChurchInline(admin.TabularInline):
-    model = ArcticleAuthor
+class ArticleChurchInline(admin.TabularInline):
+    model = ArticleAuthor
     extra = 0
 
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    inlines = (ArcticleChurchInline,)
+    inlines = (ArticleChurchInline,)
     list_display = (
         'id',
         'created',
@@ -27,8 +27,8 @@ class AuthorAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-@admin.register(ArcticleAuthor)
-class ArcticleAuthorAdmin(admin.ModelAdmin):
+@admin.register(ArticleAuthor)
+class ArticleAuthorAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'created',

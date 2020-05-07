@@ -17,7 +17,7 @@ class Author(InformationMixing, TimesTempMixing):
         return '{} - {}'.format(self.id, self.name)
 
 
-class ArcticleAuthor(InformationMixing, TimesTempMixing):
+class ArticleAuthor(InformationMixing, TimesTempMixing):
     author = models.ForeignKey(
         Author, on_delete=models.CASCADE, related_name='articles')
     url = models.CharField(_('url article'), max_length=200)

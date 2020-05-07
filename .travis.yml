@@ -5,6 +5,6 @@ python:
   - "pypy3"
 install:
   - pip install pipenv
-  - pipenv install --dev
+  - pipenv install
 script:
   - flake8

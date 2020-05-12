@@ -21,6 +21,11 @@ class ChurchType(DjangoObjectType):
         }
         interfaces = (CustomNode,)
 
+    created = graphene.String()
+
+    def resolve_created(self, info):
+        return str(self.created.strftime('%d/%m/%Y'))
+
 
 class ArticleChurchType(DjangoObjectType):
     class Meta:
@@ -107,6 +112,7 @@ class ArticleChurchMutation(graphene.Mutation):
 
 class Query(ObjectType):
     church = graphene.Field(ChurchType, id=graphene.Int(required=True))
+    random_church = graphene.Field(ChurchType)
     churches = DjangoFilterConnectionField(ChurchType)
     pictures_churches = DjangoFilterConnectionField(PictureChurchType)
     articles_churches = DjangoFilterConnectionField(ArticleChurchType)
@@ -117,6 +123,9 @@ class Query(ObjectType):
             return Church.objects.get(pk=id)
         except Exception:
             raise GraphQLError('Church not found')
+
+    def resolve_random_church(self, info, **kwargs):
+        return Church.objects.order_by('?').first()
 
 
 class Mutation(ObjectType):

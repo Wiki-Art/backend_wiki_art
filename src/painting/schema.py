@@ -19,6 +19,11 @@ class WorkArtType(DjangoObjectType):
         }
         interfaces = (CustomNode,)
 
+    created = graphene.String()
+
+    def resolve_created(self, info):
+        return str(self.created.strftime('%d/%m/%Y'))
+
 
 class ArticleWorkArtType(DjangoObjectType):
     class Meta:
@@ -50,6 +55,7 @@ class PictureWorkArtType(DjangoObjectType):
 
 class Query(ObjectType):
     work_art = graphene.Field(WorkArtType, id=graphene.Int(required=True))
+    random_work_art = graphene.Field(WorkArtType)
     work_arts = DjangoFilterConnectionField(WorkArtType)
     articles_work_arts = DjangoFilterConnectionField(ArticleWorkArtType)
     pictures_work_arts = DjangoFilterConnectionField(PictureWorkArtType)
@@ -60,3 +66,6 @@ class Query(ObjectType):
             return WorkArt.objects.get(pk=id)
         except Exception:
             raise GraphQLError('WorkArt not found')
+
+    def resolve_random_work_art(self, info, **kwargs):
+        return WorkArt.objects.order_by('?').first()

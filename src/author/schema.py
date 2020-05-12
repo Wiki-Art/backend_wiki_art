@@ -19,6 +19,11 @@ class AuthorType(DjangoObjectType):
         }
         interfaces = (CustomNode,)
 
+    created = graphene.String()
+
+    def resolve_created(self, info):
+        return str(self.created.strftime('%d/%m/%Y'))
+
 
 class ArticleAuthorType(DjangoObjectType):
     class Meta:
@@ -35,6 +40,7 @@ class ArticleAuthorType(DjangoObjectType):
 
 class Query(ObjectType):
     author = graphene.Field(AuthorType, id=graphene.Int(required=True))
+    random_author = graphene.Field(AuthorType)
     authors = DjangoFilterConnectionField(AuthorType)
     articles_author = DjangoFilterConnectionField(ArticleAuthorType)
 
@@ -44,3 +50,6 @@ class Query(ObjectType):
             return Author.objects.get(pk=id)
         except Exception:
             raise GraphQLError('Author not found')
+
+    def resolve_random_author(self, info, **kwargs):
+        return Author.objects.order_by('?').first()

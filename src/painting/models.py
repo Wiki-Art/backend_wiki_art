@@ -22,7 +22,7 @@ class WorkArt(InformationMixing, TimesTempMixing):
 
 class PictureWorkArt(TimesTempMixing):
     work_art = models.ForeignKey(
-        WorkArt, on_delete=models.CASCADE, related_name='arts')
+        WorkArt, on_delete=models.CASCADE, related_name='pictures')
     picture = models.ImageField(_('picture image'))
 
     def __str__(self):

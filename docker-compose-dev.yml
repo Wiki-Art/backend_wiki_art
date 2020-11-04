@@ -28,6 +28,8 @@ services:
       HOST: "db"
       PORT: 5432
       DATABASE_ENGINE: "postgresql"
+    volumes:
+      - .:/var/wiki_art_backend/
     ports:
       - "8000:8000"
     depends_on:

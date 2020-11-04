@@ -8,3 +8,4 @@ graphene-django==2.8.2
 pillow==7.1.0
 python-decouple==3.3
 pyUFbr==0.1.0
+psycopg2-binary

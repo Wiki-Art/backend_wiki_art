@@ -4,8 +4,8 @@ from graphene_django.debug import DjangoDebug
 from django.conf import settings
 
 from author.schema import Query as QueryAuthor
-from church.schema import Query as QueryChurch
-from church.schema import Mutation as MutationChurch
+from church.graphql.querry import Query as QueryChurch
+from church.graphql.mutation import Mutation as MutationChurch
 from painting.schema import Query as QueryWorkArt
 
 

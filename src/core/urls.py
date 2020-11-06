@@ -24,6 +24,6 @@ from django.views.decorators.csrf import csrf_exempt
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    path('upload/', include('painting.urls')),
+    path('upload/', include('work_art.urls')),
     path('upload/', include('church.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

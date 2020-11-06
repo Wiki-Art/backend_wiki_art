@@ -3,10 +3,10 @@ from graphene_django.debug import DjangoDebug
 
 from django.conf import settings
 
-from author.schema import Query as QueryAuthor
+from author.graphql.querry import Query as QueryAuthor
 from church.graphql.querry import Query as QueryChurch
 from church.graphql.mutation import Mutation as MutationChurch
-from painting.schema import Query as QueryWorkArt
+from work_art.schema import Query as QueryWorkArt
 
 
 class Query(QueryAuthor, QueryChurch, QueryWorkArt, graphene.ObjectType):

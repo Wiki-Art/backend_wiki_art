@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     # APPS
     'church',
     'author',
-    'painting',
+    'work_art',
 
 ]
 

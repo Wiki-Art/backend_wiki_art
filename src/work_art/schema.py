@@ -1,6 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType, ObjectType
-from painting.models import WorkArt, ArticleWorkArt, PictureWorkArt
+from work_art.models import WorkArt, ArticleWorkArt, PictureWorkArt
 from core.custom_node import CustomNode
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
